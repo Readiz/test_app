@@ -12,6 +12,7 @@ class App extends React.Component {
         };
 
         this.updateValue = this.updateValue.bind(this);
+        this.onClick = this.onClick.bind(this);
     }
 
     updateValue(randomValue){
@@ -32,6 +33,18 @@ class App extends React.Component {
             backgroundColor: 'black'
         };
 
+        let centerStyle = {
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            WebkitUserSelect: 'none',
+            MozUserSelect: 'none',
+            MsUserSelect:'none',
+            userSelect: 'none',
+            cursor: 'pointer'
+        };
+
         return  ( /* Render Comment Test */
             <div>
                 <Header title={ this.props.headerTitle }/>
@@ -43,8 +56,19 @@ class App extends React.Component {
                 <h2> Welcome to {text}</h2>
                 <button onClick= {this.sayHey}>Click Me</button>
                 <p style = {pStyle}>{1 == 1 ? 'True' : 'False'}</p>
+                <div
+                    onClick={ this.onClick }
+                    style={ centerStyle }
+                >
+
+                    <h1> {this.props.store.getState().value} </h1>
+                </div>
             </div>
         );
+    }
+    
+    onClick() {
+        this.props.store.dispatch(increase(1));
     }
 }
 
